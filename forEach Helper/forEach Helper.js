@@ -34,7 +34,7 @@ function adder(number) {
     sum += number;
 }
 
-// TODO can we pass multiple paramerters to the forEach function ???
+// TODO can we pass multiple parameters to the forEach function ???
 // without anonymous functions
 numbers.forEach(adder);
 
