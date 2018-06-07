@@ -37,9 +37,9 @@ Field.prototype.validate = function () {
 
 let username = new Field("2cool");
 let password = new Field("my_password");
-let birthdate = new Field("10/10/2018");
+let birthDate = new Field("10/10/2018");
 
-let fields = [username, password, birthdate];
+let fields = [username, password, birthDate];
 
 let formIsValid = fields.every(field => field.validate());
 if (formIsValid) {
