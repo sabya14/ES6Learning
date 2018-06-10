@@ -10,7 +10,7 @@ function createBookShop(invertory) {
     }
 }
 
-function createBookShopModified(invertory) {
+function createBookShopModified(inventory) {
     return {
         inventory,
         inventoryValue() {

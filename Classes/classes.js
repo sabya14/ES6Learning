@@ -29,7 +29,7 @@ class NewCar {
     drive () {
         return 'vro' + this.title;
     }
-}
+}   
 
 class NewToyota extends NewCar{
 
