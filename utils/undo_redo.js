@@ -18,23 +18,15 @@ function UndoRedoStack({limit = 10}) {
 }
 
 UndoRedoStack.prototype.push = function (data, state) {
-    console.log('Data', data.length)
+    console.log('Pushing', data)
     if (state === 'past') {
         if (this.past.length === this.limit) {
             // stack full, delete oldest element
             this.past.shift();
         }
-        if (this.current === null) {
-            // First element into the stack
-            // We dont populate the undo stack, as there is only one element
-            // With every push, we should clear the future(redo) stack
-            this.current = data;
-            this.future = [];
-            this.past = []
-        } else {
-            // Else, we push the current element into the past stack, and update the current element with the new data.
-            this.past.push(this.current);
-            this.current = data;
+        else {
+            //Push the data in the past stack.
+            this.past.push(data);
             // With every push, we should clear the future(redo) stack
             this.future = [];
         }
@@ -67,8 +59,16 @@ UndoRedoStack.prototype.undo = function () {
         // We also make sure that the current element goes into the future stack. So that we can later
         // redo operation. But when we do undo
         this.future.push(this.current)
-        this.current = this.past.pop();
-        return this.current
+        let element = this.past.pop();
+        if (element !== null) {
+            this.current = element
+            return element
+        } else {
+            let element = this.current
+            this.current = null
+            console.log('Last', element)
+            return element
+        }
     }
 };
 
@@ -87,15 +87,13 @@ UndoRedoStack.prototype.redo = function () {
          * future stack
          */
         this.past.push(this.current)
-        let element = this.future.pop();
-        console.log('Data', element.length)
-        this.current = element;
-        return element
+        this.current = this.future.pop();
+        return this.current
     }
 }
 
 UndoRedoStack.prototype.setCurrent = function (data) {
-    console.log('Called', data)
+    // Sets the current element
     this.current = data
     console.log('Current', this.current)
 }
